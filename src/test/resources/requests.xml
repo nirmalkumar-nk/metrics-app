@@ -1,0 +1,6 @@
+<url_evaluator>
+
+    <url path="/metrics" method="get">
+        <attachments type=".jpeg"/>
+    </url>
+</url_evaluator>

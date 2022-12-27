@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="url_evaluator">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="url" type="urlType" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="urlType">
+        <xs:sequence>
+            <xs:element name="attachments" type="attachmentType" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="path" type="xs:string" />
+<!--        <xs:attribute name="method" type="xs:string" />-->
+    </xs:complexType>
+    <xs:complexType name="attachmentType">
+        <xs:attribute name="type" type="xs:string" />
+    </xs:complexType>
+</xs:schema>
