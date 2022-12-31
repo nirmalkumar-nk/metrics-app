@@ -3,6 +3,7 @@ package com.samknows.server;
 import com.samknows.utility.XMLUtility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.when;
 
 class ServerConfigTest {
 
+    @Mock
     private ServerConfig serverConfig;
     private Hashtable<String, Node> xmlMap;
     @BeforeEach

@@ -43,7 +43,7 @@ public class ServerConfig {
 
 
     static Logger LOGGER = LogManager.getLogger(ServerConfig.class.getName());
-    private static void setupServer(){
+    private static ServerConfig setupServer(){
         try{
             //loading server properties
             if(serverProperties == null || serverProperties.isEmpty()){
@@ -53,7 +53,7 @@ public class ServerConfig {
                     serverProperties.load(propertyFile);
                 }catch (IOException io){
                     LOGGER.log(Level.FATAL, "Exception occurred while loading the properties file");
-                    return;
+                    return null;
                 }
             }
 
@@ -82,14 +82,16 @@ public class ServerConfig {
             Hashtable<String, Node> xmlMap = XMLUtility.getRequestPathMap(xmlDoc);
             if(xmlMap == null || xmlMap.isEmpty()){
                 LOGGER.log(Level.FATAL, "xmlMap is Empty or null, Server Configuration stopped");
-                return;
+                return null;
             }
 
             serverConfig = new ServerConfig(xmlMap);
 
             serverConfigured = true;
+            return serverConfig;
         }catch (Exception ex){ //Generalising the XML Exception for now
             LOGGER.log(Level.FATAL, "Exception occurred while loading and configuring the Request XML for Server Configuration ", ex);
+            return null;
         }
     }
 
@@ -101,7 +103,7 @@ public class ServerConfig {
         return serverConfig;
     }
 
-    //get instance method that shall be used for custom server configuration
+    //instance method that shall be used for custom server configuration
     public static ServerConfig getInstance(Properties properties){
         if(serverConfig == null){
             LOGGER.log(Level.INFO, "Setting up server with custom properties");

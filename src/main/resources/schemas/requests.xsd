@@ -12,9 +12,12 @@
             <xs:element name="attachments" type="attachmentType" minOccurs="0" />
         </xs:sequence>
         <xs:attribute name="path" type="xs:string" />
+<!--        Method names should be in UPPER CASE-->
         <xs:attribute name="method" type="xs:string" />
     </xs:complexType>
     <xs:complexType name="attachmentType">
+        <xs:attribute name="name" type="xs:string" />
+<!--        could use comma separated values for file types. Ex: json,jpeg,png -->
         <xs:attribute name="type" type="xs:string" />
     </xs:complexType>
 </xs:schema>
