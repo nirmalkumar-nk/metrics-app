@@ -1,6 +1,6 @@
 <url_evaluator>
 
-    <url path="/metrics" method="GET">
+    <url path="/metrics" method="POST">
         <attachments name="file" type="json"/>
     </url>
 </url_evaluator>

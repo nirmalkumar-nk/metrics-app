@@ -12,6 +12,8 @@ public enum FailureResponse {
     //Other Failures
     //Malformed content failures start with code 4401
     JSON_NOT_FORMED_WELL(4401, "The given JSON is not formed well"),
+    EMPTY_JSON(4402, "The given JSON is null or empty"),
+    JSON_ARRAY_EXPECTED(4403, "JSON Array expected but received JSON"),
 
     //Internal Errors
     INTERNAL_EXCEPTION(5001, "An Internal Exception occurred while handling the request");

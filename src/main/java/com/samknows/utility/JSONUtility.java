@@ -1,9 +1,9 @@
 package com.samknows.utility;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 /**
@@ -16,11 +16,13 @@ public class JSONUtility {
         return mapper.createObjectNode();
     }
 
+    public static ArrayNode getArrayNode(){
+        return mapper.createArrayNode();
+    }
+
     public static boolean isValidJSON(String jsonString){
         try {
             mapper.readTree(jsonString);
-        } catch (JsonMappingException e) {
-            return false;
         } catch (JsonProcessingException e) {
             return false;
         }
@@ -31,8 +33,6 @@ public class JSONUtility {
         JsonNode jsonNode;
         try{
             jsonNode = mapper.readTree(jsonString);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

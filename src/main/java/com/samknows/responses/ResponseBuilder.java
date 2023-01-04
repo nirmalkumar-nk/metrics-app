@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class ResponseBuilder {
 
-    public final static ResponseEntity<Object> success(){
+    public static ResponseEntity<Object> success(){
         Map<String, Object> responseMap = new HashMap<String, Object>();
 
         responseMap.put(ResponseKey.CODE.name().toLowerCase(), SuccessResponse.SUCCESS.getCode());
@@ -30,10 +30,10 @@ public class ResponseBuilder {
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.setContentType(MediaType.APPLICATION_JSON);
 
-        return new ResponseEntity<Object>(responseMap, responseHeader, HttpStatus.OK);
+        return new ResponseEntity<>(responseMap, responseHeader, HttpStatus.OK);
     }
 
-    public final static HttpServletResponse requestNotFound(ServletResponse servletResponse){
+    public static HttpServletResponse requestNotFound(ServletResponse servletResponse){
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -41,7 +41,7 @@ public class ResponseBuilder {
         return response;
     }
 
-    public final static HttpServletResponse badRequest(ServletResponse servletResponse, FailureResponse failureResponse) throws IOException {
+    public static HttpServletResponse badRequest(ServletResponse servletResponse, FailureResponse failureResponse) throws IOException {
         ObjectNode responseMap = JSONUtility.getJSONNode();
 
         responseMap.put(ResponseKey.CODE.name().toLowerCase(), failureResponse.getCode());
@@ -57,6 +57,17 @@ public class ResponseBuilder {
         responseWriter.close();
 
         return response;
+    }
+
+    public static ResponseEntity badRequest(FailureResponse failureResponse) {
+        ObjectNode responseMap = JSONUtility.getJSONNode();
+
+        responseMap.put(ResponseKey.CODE.name().toLowerCase(), failureResponse.getCode());
+        responseMap.put(ResponseKey.MESSAGE.name().toLowerCase(), failureResponse.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(responseMap);
     }
 
     public static HttpServletResponse internalServerError(ServletResponse servletResponse) {
@@ -79,6 +90,23 @@ public class ResponseBuilder {
         }
 
         return response;
+    }
+
+    public static ResponseEntity internalServerError(){
+        ObjectNode responseMap = JSONUtility.getJSONNode();
+
+        responseMap.put(ResponseKey.CODE.name().toLowerCase(), FailureResponse.INTERNAL_EXCEPTION.getCode());
+        responseMap.put(ResponseKey.MESSAGE.name().toLowerCase(), FailureResponse.INTERNAL_EXCEPTION.getMessage());
+
+        return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(responseMap);
+    }
+
+    public static ResponseEntity writeFile(byte[] file){
+        return ResponseEntity.ok()
+                .contentType(MediaType.TEXT_PLAIN)
+                .body(file);
     }
 
 }

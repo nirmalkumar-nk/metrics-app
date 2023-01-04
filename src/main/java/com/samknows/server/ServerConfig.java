@@ -120,4 +120,8 @@ public class ServerConfig {
     public static boolean isServerConfigured() {
         return serverConfigured;
     }
+
+    public static Properties getServerProperties() {
+        return serverProperties;
+    }
 }
